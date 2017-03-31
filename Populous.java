@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-public class Populous{
+public abstract class Populous{
    Chromosome[] chromosomes;
    Chromosome base;
    
@@ -17,10 +17,9 @@ public class Populous{
    
    /**
     * Generates the next generation of Chromosomes
+    * Runs the mating algorithm
     */
-   private void nextGeneration(){
-      int i = 5;
-   }
+   protected abstract void nextGeneration();
    
    /**
     * Generates the specified number of generations
@@ -28,5 +27,18 @@ public class Populous{
    public void runGenerations(int numTimes){
       for(int i = 0; i < numTimes; i++)
          nextGeneration();
+   }
+   
+   public Chromosome getBest(){
+      int bestCost = chromosomes[0].cost();
+      int bestIndex = 0;
+      for(int i = 1; i < chromosomes.length; i++){
+         int currentCost = chromosomes[i].cost();
+         if(currentCost < bestCost){
+            bestIndex = i;
+            bestCost = currentCost;
+         }
+      }
+      return chromosomes[bestIndex];
    }
 }
