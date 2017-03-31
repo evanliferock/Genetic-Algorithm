@@ -1,6 +1,6 @@
-public interface Chromosome{
-  public int cost();
-  public int getThis(){
-   return 5;
-  }
+public abstract class Chromosome{
+   /**
+    * Returns the cost for the given Chromosome
+    */
+   public abstract int cost();
 }
