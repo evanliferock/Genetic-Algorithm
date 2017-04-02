@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public abstract class Route extends Chromosome{
-   char[] nodes;
+   final char[] nodes;
    final int[][] matrix;
    char[] route;
    
