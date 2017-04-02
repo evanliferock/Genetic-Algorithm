@@ -13,22 +13,14 @@ public abstract class Route extends Chromosome{
       for(int i = 0; i < nodes.length; i++){
          nodes[i] = (char)(97 + i);
       }
-      
       route = nodes.clone();
-      
-      //copied from http://stackoverflow.com/questions/1519736/random-shuffling-of-an-array
-      //because I was too lazy to write it.
-      char temp;
-      int index;
-      Random random = new Random();
-      for (int i = route.length - 1; i > 0; i--){
-        index = random.nextInt(i + 1);
-        temp = route[index];
-        route[index] = route[i];
-        route[i] = temp;
-      }
-      for(char a : route)
-         System.out.println(a);
+      randomizeRoute();
+   }
+   
+   public Route(Route otherRoute){
+      this.nodes = otherRoute.nodes;
+      this.matrix = otherRoute.matrix;
+      this.route = otherRoute.route.clone();
    }
    
    public int cost(){
@@ -40,5 +32,23 @@ public abstract class Route extends Chromosome{
       // cost for returning back home
       cost += matrix[route[0] - 97][route[route.length - 1] - 97];
       return cost;
+   }
+   
+   public Chromosome createNew(){
+      Route a = this;
+      a.randomizeRoute();
+      return a;
+   }
+   
+   protected void randomizeRoute(){
+      char temp;
+      int index;
+      Random random = new Random();
+      for (int i = route.length - 1; i > 0; i--){
+        index = random.nextInt(i + 1);
+        temp = route[index];
+        route[index] = route[i];
+        route[i] = temp;
+      }
    }
 }
