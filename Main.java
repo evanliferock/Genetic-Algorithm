@@ -8,12 +8,12 @@ public class Main{
    */
    public static void main(String[] args){
       int[][] matrix = readMatrix();
-      /*for(int i = 0; i < matrix.length; i++){
-         for(int j = 0; j < matrix[0].length; j++){
-            System.out.print(matrix[i][j] + ", ");
-         }
-         System.out.println();
-      }*/
+      SinglePointRoute sp = new SinglePointRoute(matrix);
+      DoublePointRoute dp = new DoublePointRoute(matrix);
+      TopDownPopulous topSingle = new TopDownPopulous(sp, 64);
+      TopDownPopulous topDouble = new TopDownPopulous(dp, 64);
+      TournamentPopulous tourSingle = new TournamentPopulous(sp, 64);
+      TournamentPopulous tourDouble = new TournamentPopulous(dp, 64);
    }
   
    private static int[][] readMatrix(){

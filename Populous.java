@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public abstract class Populous{
    Chromosome[] chromosomes;
-   Chromosome base;
+   final Chromosome base;
    
    /**
     * Pass in a Chromosome Class and the number of Chomosomes to have
