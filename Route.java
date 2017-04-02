@@ -32,8 +32,13 @@ public abstract class Route extends Chromosome{
    }
    
    public int cost(){
-      //for(int i = 0;
-      return 0;
+      int cost = 0;
+      //cost of route
+      for(int i = 1; i < route.length; i++){
+         cost += matrix[route[i-1] - 97][route[i] - 97];
+      }
+      // cost for returning back home
+      cost += matrix[route[0] - 97][route[route.length - 1] - 97];
+      return cost;
    }
-
 }
