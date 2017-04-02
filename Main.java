@@ -10,10 +10,23 @@ public class Main{
       int[][] matrix = readMatrix();
       SinglePointRoute sp = new SinglePointRoute(matrix);
       DoublePointRoute dp = new DoublePointRoute(matrix);
+      
       TopDownPopulous topSingle = new TopDownPopulous(sp, 64);
       TopDownPopulous topDouble = new TopDownPopulous(dp, 64);
       TournamentPopulous tourSingle = new TournamentPopulous(sp, 64);
       TournamentPopulous tourDouble = new TournamentPopulous(dp, 64);
+      
+      int numRuns = 600;
+      topSingle.runGenerations(numRuns);
+      topDouble.runGenerations(numRuns);
+      tourSingle.runGenerations(numRuns);
+      tourDouble.runGenerations(numRuns);
+      System.out.println("Run | # of Generations | Circuit Produced | Cost");
+      System.out.println("------------------------------------------------");
+      System.out.println("0   |   " + numRuns + "            | Add this stuff");
+      System.out.println("1   |   " + numRuns + "            | Add this stuff");
+      System.out.println("2   |   " + numRuns + "            | Add this stuff");
+      System.out.println("3   |   " + numRuns + "            | Add this stuff");
    }
   
    private static int[][] readMatrix(){
