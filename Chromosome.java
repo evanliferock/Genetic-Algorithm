@@ -12,5 +12,5 @@ public abstract class Chromosome{
    /**
     * Mates the calling object and the passed in object
     */
-   public abstract Chromosome mate(Chromosome b);
+   public abstract Chromosome[] mate(Chromosome b);
 }
