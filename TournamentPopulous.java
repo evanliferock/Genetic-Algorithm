@@ -15,19 +15,27 @@ public class TournamentPopulous extends Populous{
       }
       Random rand = new Random();
       
-      int indexOne, indexTwo;
+      // Needs four variabels because otherwise List will remove based on
+      // index instead of object
+      int chromosomeIndex1, chromosomeIndex2, listIndex1, listIndex2;
       int theSize = indexesUsed.size();
       Chromosome[] thePair;
       while(0 < theSize){
-         indexOne = indexesUsed.get(Math.abs(rand.nextInt() % theSize));
-         indexesUsed.remove(indexOne);
+         listIndex1 = Math.abs(rand.nextInt(theSize));
+         chromosomeIndex1 = indexesUsed.get(listIndex1);
+         indexesUsed.remove(listIndex1);
+         
          theSize = indexesUsed.size();
-         indexTwo = indexesUsed.get(Math.abs(rand.nextInt() % theSize));
-         indexesUsed.remove(indexTwo);
-         thePair = chromosomes[indexOne].mate(chromosomes[indexTwo]);
+         
+         listIndex2 = Math.abs(rand.nextInt(theSize));
+         chromosomeIndex2 = indexesUsed.get(listIndex2);
+         indexesUsed.remove(listIndex2);
+         
          theSize = indexesUsed.size();
-         chromosomes[indexOne] = thePair[0];
-         chromosomes[indexTwo] = thePair[1];
+         
+         thePair = chromosomes[chromosomeIndex1].mate(chromosomes[chromosomeIndex2]);
+         chromosomes[chromosomeIndex1] = thePair[0];
+         chromosomes[chromosomeIndex2] = thePair[1];
       }
    }
 }
