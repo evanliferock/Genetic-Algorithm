@@ -8,19 +8,19 @@ public class Main{
    */
    public static void main(String[] args){
       int[][] matrix = readMatrix();
-      SinglePointRoute sp = new SinglePointRoute(matrix);
-      DoublePointRoute dp = new DoublePointRoute(matrix);
-      
-      TopDownPopulous topSingle = new TopDownPopulous(sp, 64);
-      TopDownPopulous topDouble = new TopDownPopulous(dp, 64);
-      TournamentPopulous tourSingle = new TournamentPopulous(sp, 64);
-      TournamentPopulous tourDouble = new TournamentPopulous(dp, 64);
-      
+      CycleCrossoverRoute cc = new CycleCrossoverRoute(matrix);
+      PartiallyMatchedRoute pm = new PartiallyMatchedRoute(matrix);
+
+      TopDownPopulous topCycle = new TopDownPopulous(cc, 64);
+      TopDownPopulous topPartial = new TopDownPopulous(pm, 64);
+      TournamentPopulous tourCycle = new TournamentPopulous(cc, 64);
+      TournamentPopulous tourPartial = new TournamentPopulous(pm, 64);
+
       int numRuns = 600;
-      topSingle.runGenerations(numRuns);
-      topDouble.runGenerations(numRuns);
-      tourSingle.runGenerations(numRuns);
-      tourDouble.runGenerations(numRuns);
+      topCycle.runGenerations(numRuns);
+      topPartial.runGenerations(numRuns);
+      tourCycle.runGenerations(numRuns);
+      tourPartial.runGenerations(numRuns);
       System.out.println("Run | # of Generations | Circuit Produced | Cost");
       System.out.println("------------------------------------------------");
       System.out.println("0   |   " + numRuns + "            | Add this stuff");
@@ -28,7 +28,7 @@ public class Main{
       System.out.println("2   |   " + numRuns + "            | Add this stuff");
       System.out.println("3   |   " + numRuns + "            | Add this stuff");
    }
-  
+
    private static int[][] readMatrix(){
    /**
     * Each row is a,b,...h
@@ -42,12 +42,12 @@ public class Main{
          while(theInput.hasNextLine()){
             theLines.add(theInput.nextLine());
          }
-                  
+
       }catch(Exception e){
          System.out.println(e.getMessage());
          System.exit(1);
       }
-      
+
       String[] aLine = theLines.get(0).split(",");
       theMatrix = new int[theLines.size()][aLine.length];
       try{
@@ -61,7 +61,7 @@ public class Main{
          System.out.println(e.getMessage());
          System.exit(1);
       }
-      
+
       return theMatrix;
    }
 }
