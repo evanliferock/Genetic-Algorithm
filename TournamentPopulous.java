@@ -19,10 +19,10 @@ public class TournamentPopulous extends Populous{
       int theSize = indexesUsed.size();
       Chromosome[] thePair;
       while(0 < theSize){
-         indexOne = indexesUsed.get(rand.nextInt() % theSize);
+         indexOne = indexesUsed.get(Math.abs(rand.nextInt() % theSize));
          indexesUsed.remove(indexOne);
          theSize = indexesUsed.size();
-         indexTwo = indexesUsed.get(rand.nextInt() % theSize);
+         indexTwo = indexesUsed.get(Math.abs(rand.nextInt() % theSize));
          indexesUsed.remove(indexTwo);
          thePair = chromosomes[indexOne].mate(chromosomes[indexTwo]);
          theSize = indexesUsed.size();

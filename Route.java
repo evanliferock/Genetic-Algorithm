@@ -5,7 +5,7 @@ import java.util.Random;
 public abstract class Route extends Chromosome{
    final char[] nodes;
    final int[][] matrix;
-   char[] route;
+   protected char[] route;
    
    Route(int[][] theMatrix){
       matrix = theMatrix;
