@@ -8,6 +8,8 @@ public class Main{
    */
    public static void main(String[] args){
       int[][] matrix = readMatrix();
+      int primsCost = primsAlgorithm(matrix);
+
       CycleCrossoverRoute cc = new CycleCrossoverRoute(matrix);
       PartiallyMatchedRoute pm = new PartiallyMatchedRoute(matrix);
 
@@ -63,5 +65,51 @@ public class Main{
       }
 
       return theMatrix;
+   }
+
+   /**
+    * Performs Prim's Algorithm on graph given by matrix. Returns
+    * the total cost of the spanning tree.
+    */
+   private static int primsAlgorithm(int[][] matrix){
+     int[] visitedNodes = new int[matrix.length];
+     int[] unvisitedNodes = new int[matrix.length];
+     for(int i = 0; i < unvisitedNodes.length; i++){
+        unvisitedNodes[i] = i;
+     }
+
+     visitedNodes[0] = unvisitedNodes[0]; //Set arbitrary root
+     int numVisited = 1;
+     unvisitedNodes[0] = unvisitedNodes[unvisitedNodes.length - 1];
+     int numUnvisited = unvisitedNodes.length - 1;
+
+     int totalCost = 0;
+
+     while(numUnvisited > 0){
+       int minCost = matrix[visitedNodes[0]][unvisitedNodes[0]];
+       int minNode = 0;
+
+       //Find minimum cost edge out of all edges with one visited vertex
+       //and one unvisited vertex
+       for(int i = 0; i < numVisited; i++){
+         for(int j = 0; j < numUnvisited; j++){
+           if(matrix[visitedNodes[i]][unvisitedNodes[j]] < minCost
+              && visitedNodes[i] != unvisitedNodes[j]){
+             minCost = matrix[visitedNodes[i]][unvisitedNodes[j]];
+             minNode = j;
+           }
+         }
+       }
+
+       //Visit the vertex that is connected to least cost edge, update
+       //cost and node arrays to reflect this change
+       totalCost += minCost;
+       visitedNodes[numVisited] = unvisitedNodes[minNode];
+       numVisited++;
+       unvisitedNodes[minNode] = unvisitedNodes[numUnvisited - 1];
+       numUnvisited--;
+     }
+
+     return totalCost;
    }
 }
