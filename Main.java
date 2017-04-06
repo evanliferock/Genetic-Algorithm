@@ -13,24 +13,32 @@ public class Main{
       int[] primsCost = primsAlgorithm(matrix);
 
       CycleCrossoverRoute cc = new CycleCrossoverRoute(matrix);
+      CycleCrossoverRoute cc2 = new CycleCrossoverRoute(matrix);
       PartiallyMatchedRoute pm = new PartiallyMatchedRoute(matrix);
+      PartiallyMatchedRoute pm2 = new PartiallyMatchedRoute(matrix);
 
       TopDownPopulous topCycle = new TopDownPopulous(cc, 64);
       TopDownPopulous topPartial = new TopDownPopulous(pm, 64);
-      TournamentPopulous tourCycle = new TournamentPopulous(cc, 64);
-      TournamentPopulous tourPartial = new TournamentPopulous(pm, 64);
+      TournamentPopulous tourCycle = new TournamentPopulous(cc2, 64);
+      TournamentPopulous tourPartial = new TournamentPopulous(pm2, 64);
 
       int numRuns = 600;
       topCycle.runGenerations(numRuns);
       topPartial.runGenerations(numRuns);
       tourCycle.runGenerations(numRuns);
       tourPartial.runGenerations(numRuns);
-      System.out.println("Run | # of Generations | Circuit Produced | Cost");
-      System.out.println("------------------------------------------------");
-      System.out.println("0   |   " + numRuns + "            | Add this stuff");
-      System.out.println("1   |   " + numRuns + "            | Add this stuff");
-      System.out.println("2   |   " + numRuns + "            | Add this stuff");
-      System.out.println("3   |   " + numRuns + "            | Add this stuff");
+
+      Route bestTopCycle = (Route) topCycle.getBest();
+      Route bestTopPartial = (Route) topPartial.getBest();
+      Route bestTourCycle = (Route) tourCycle.getBest();
+      Route bestTourPartial = (Route) tourPartial.getBest();
+
+      System.out.println("Type | # of Generations | Circuit Produced | Cost");
+      System.out.println("-------------------------------------------------");
+      System.out.println("0    |   " + numRuns + "            | Add this stuff   | " + bestTopCycle.cost() + "   ");
+      System.out.println("1    |   " + numRuns + "            | Add this stuff   | " + bestTopPartial.cost()  + "   ");
+      System.out.println("2    |   " + numRuns + "            | Add this stuff   | " + bestTourCycle.cost()  + "   ");
+      System.out.println("3    |   " + numRuns + "            | Add this stuff   | " + bestTourPartial.cost() + "   ");
    }
 
    private static int[][] readMatrix(){
