@@ -8,7 +8,9 @@ public class Main{
    */
    public static void main(String[] args){
       int[][] matrix = readMatrix();
-      int primsCost = primsAlgorithm(matrix);
+
+      //primsCost[0] = lower-bound, primsCost[1] = upper-bound
+      int[] primsCost = primsAlgorithm(matrix);
 
       CycleCrossoverRoute cc = new CycleCrossoverRoute(matrix);
       PartiallyMatchedRoute pm = new PartiallyMatchedRoute(matrix);
@@ -69,9 +71,11 @@ public class Main{
 
    /**
     * Performs Prim's Algorithm on graph given by matrix. Returns
-    * the total cost of the spanning tree.
+    * the total cost of the spanning tree (lower bound), as well
+    * as the total cost plus the edge between the two end points
+    * of the tree (upper bound).
     */
-   private static int primsAlgorithm(int[][] matrix){
+   private static int[] primsAlgorithm(int[][] matrix){
      int[] visitedNodes = new int[matrix.length];
      int[] unvisitedNodes = new int[matrix.length];
      for(int i = 0; i < unvisitedNodes.length; i++){
@@ -85,9 +89,17 @@ public class Main{
 
      int totalCost = 0;
 
+     //Keeps track of how many nodes a certain node is attached to so
+     //that can later find the two ends of the tree
+     int[] numNodesAttached = new int[matrix.length];
+     for(int i = 0; i < numNodesAttached.length; i++){
+       numNodesAttached[i] = 0;
+     }
+
      while(numUnvisited > 0){
        int minCost = matrix[visitedNodes[0]][unvisitedNodes[0]];
        int minNode = 0;
+       int fromNode = 0;
 
        //Find minimum cost edge out of all edges with one visited vertex
        //and one unvisited vertex
@@ -97,6 +109,7 @@ public class Main{
               && visitedNodes[i] != unvisitedNodes[j]){
              minCost = matrix[visitedNodes[i]][unvisitedNodes[j]];
              minNode = j;
+             fromNode = i;
            }
          }
        }
@@ -104,12 +117,28 @@ public class Main{
        //Visit the vertex that is connected to least cost edge, update
        //cost and node arrays to reflect this change
        totalCost += minCost;
+       numNodesAttached[visitedNodes[fromNode]]++;
+       numNodesAttached[unvisitedNodes[minNode]]++;
        visitedNodes[numVisited] = unvisitedNodes[minNode];
        numVisited++;
        unvisitedNodes[minNode] = unvisitedNodes[numUnvisited - 1];
        numUnvisited--;
      }
 
-     return totalCost;
+     //Find the two end-points of tree
+     int i = 0, j = 0;
+     int[] ends = new int[2];
+     while(i < 2){
+       if(numNodesAttached[j] == 1){
+         ends[i++] = j;
+       }
+       j++;
+     }
+
+     int[] bounds = new int[2];
+     bounds[0] = totalCost;
+     //Add cost of edge between two end-nodes to get an upper bound
+     bounds[1] = totalCost + matrix[ends[0]][ends[1]];
+     return bounds;
    }
 }
