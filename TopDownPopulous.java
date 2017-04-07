@@ -6,16 +6,17 @@ public class TopDownPopulous extends Populous{
     * Will run the Top-Down algorithm for pairing
     */
    protected void nextGeneration(){
-      for(int i = 0; i < chromosomes.length - 1; i++){
+     int numParents = chromosomes.length/2;
+      for(int i = 0; i < numParents; i++){
         int best = getBestIndex(i);
         Chromosome temp = chromosomes[i];
         chromosomes[i] = chromosomes[best];
         chromosomes[best] = temp;
       }
-      for(int i = 0; i < chromosomes.length; i+=2){
+      for(int i = 0; i < numParents; i+=2){
         Chromosome[] thePair = chromosomes[i].mate(chromosomes[i+1]);
-        chromosomes[i] = thePair[0];
-        chromosomes[i+1] = thePair[1];
+        chromosomes[i + numParents] = thePair[0];
+        chromosomes[i + numParents + 1] = thePair[1];
       }
    }
 
