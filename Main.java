@@ -33,7 +33,7 @@ public class Main{
       TournamentPopulous tourCycle = new TournamentPopulous(cc2, 64);
       TournamentPopulous tourPartial = new TournamentPopulous(pm2, 64);
 
-      int numRuns = 600;
+      int numRuns = 800;
       topCycle.runGenerations(numRuns);
       topPartial.runGenerations(numRuns);
       tourCycle.runGenerations(numRuns);
@@ -43,7 +43,14 @@ public class Main{
       Route bestTopPartial = (Route) topPartial.getBest();
       Route bestTourCycle = (Route) tourCycle.getBest();
       Route bestTourPartial = (Route) tourPartial.getBest();
-
+      
+      System.out.println("0: Top-Down pairing with Cycle Crossover mating");
+      System.out.println("1: Top-Down pairing with Partial Matched mating");
+      System.out.println("2: Tournament pairing with Cycle Crossover mating");
+      System.out.println("3: Tournament pairing with Partial Matched mating");
+      
+      System.out.println("Prims lower bound: " + primsCost[0]);
+      
       System.out.println("Type | # of Generations | Circuit Produced | Cost");
       System.out.println("-------------------------------------------------");
       System.out.println("0    |   " + numRuns + "            | " +
