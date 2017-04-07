@@ -16,10 +16,11 @@ public class PartiallyMatchedRoute extends Route{
   public Chromosome[] mate(Chromosome b){
     Chromosome[] returnArray = new Chromosome[2];
     Random r = new Random();
-    returnArray[0] = new PartiallyMatchedRoute(this.matrix);
-    returnArray[1] = new PartiallyMatchedRoute(this.matrix);
-    char[] oldRoute = this.route;
-    char[] otherRoute = ((Route)b).route;
+
+    returnArray[0] = this.createNew();
+		returnArray[1] = this.createNew();
+		char[] oldRoute = this.route.clone();
+		char[] otherRoute = ((Route)b).route.clone();
 
     int crossFirst = r.nextInt(oldRoute.length-1);
     int crossSecond = r.nextInt(oldRoute.length-1);

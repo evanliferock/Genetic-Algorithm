@@ -4,7 +4,7 @@
  * Dev 1: Evan Srock
  * Dev 2: Patrick Chadbourne
  * Dev 3: Katie Phillips
- * 
+ *
  * Program to run Genetic Algorithm on the Traveling
  * Salesperson problem
  */
@@ -48,11 +48,11 @@ public class Main{
       System.out.println("-------------------------------------------------");
       System.out.println("0    |   " + numRuns + "            | " +
                         bestTopCycle.getRoute() +  "         | " + bestTopCycle.cost() + "   ");
-      System.out.println("1    |   " + numRuns + "            | " + 
+      System.out.println("1    |   " + numRuns + "            | " +
                         bestTopPartial.getRoute() +  "         | " + bestTopPartial.cost()  + "   ");
-      System.out.println("2    |   " + numRuns + "            | " + 
+      System.out.println("2    |   " + numRuns + "            | " +
                         bestTourCycle.getRoute() +  "         | " + bestTourCycle.cost()  + "   ");
-      System.out.println("3    |   " + numRuns + "            | " + 
+      System.out.println("3    |   " + numRuns + "            | " +
                         bestTourPartial.getRoute() +  "         | " + bestTourPartial.cost() + "   ");
    }
 
