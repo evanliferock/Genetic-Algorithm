@@ -1,8 +1,10 @@
+import java.util.Random;
+
 public class CycleCrossoverRoute extends Route{
 	CycleCrossoverRoute(int[][] theMatrix){
 		super(theMatrix);
 	}
-   
+
    public Chromosome createNew(){
       return new CycleCrossoverRoute(matrix);
    }
@@ -12,8 +14,9 @@ public class CycleCrossoverRoute extends Route{
 	*/
 	public Chromosome[] mate(Chromosome b){
 		Chromosome[] returnArray = new Chromosome[2];
-		returnArray[0] = this.createNew();
-		returnArray[1] = this.createNew();
+		Random r = new Random();
+		returnArray[0] = new CycleCrossoverRoute(this.matrix);
+		returnArray[1] = new CycleCrossoverRoute(this.matrix);
 		char[] oldRoute = this.route;
 		char[] otherRoute = ((Route)b).route;
 
@@ -37,6 +40,14 @@ public class CycleCrossoverRoute extends Route{
 				}
 			}
 		}
+    //This controls the mutation factor.
+    if(r.nextInt(100) >= 92){
+      //Swap the middle destinations.
+      //This may seem like a random mutation, but should actually work pretty great
+      char tempC = oldRoute[oldRoute.length/2];
+      oldRoute[oldRoute.length/2] = oldRoute[(oldRoute.length/2) - 1];
+      oldRoute[(oldRoute.length/2) - 1] = tempC;
+    }
 		((Route) returnArray[0]).route = oldRoute;
 		((Route) returnArray[1]).route = otherRoute;
 		return returnArray;
