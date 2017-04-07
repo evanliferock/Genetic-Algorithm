@@ -10,6 +10,7 @@ public class TournamentPopulous extends Populous{
     */
    protected void nextGeneration(){
       ArrayList<Integer> indexesUsed = new ArrayList<Integer>();
+      ArrayList<Chromosome> bestChromosomes = new ArrayList<Chromosome>();
       for(int i = 0; i < chromosomes.length; i++){
          indexesUsed.add(i);
       }
@@ -17,25 +18,32 @@ public class TournamentPopulous extends Populous{
       
       // Needs four variabels because otherwise List will remove based on
       // index instead of object
-      int chromosomeIndex1, chromosomeIndex2, listIndex1, listIndex2;
-      int theSize = indexesUsed.size();
-      Chromosome[] thePair;
-      while(0 < theSize){
+      int listIndex1, listIndex2, theSize;
+      for(int i = 0; i < chromosomes.length; i+=2) {
+         theSize = indexesUsed.size();
          listIndex1 = Math.abs(rand.nextInt(theSize));
-         chromosomeIndex1 = indexesUsed.get(listIndex1);
-         indexesUsed.remove(listIndex1);
-         
-         theSize = indexesUsed.size();
-         
          listIndex2 = Math.abs(rand.nextInt(theSize));
-         chromosomeIndex2 = indexesUsed.get(listIndex2);
-         indexesUsed.remove(listIndex2);
          
-         theSize = indexesUsed.size();
+         if(chromosomes[indexesUsed.get(listIndex1)].cost() <
+            chromosomes[indexesUsed.get(listIndex2)].cost()){
+            bestChromosomes.add(chromosomes[indexesUsed.get(listIndex1)]);
+            indexesUsed.remove(listIndex1);
+         }else{
+            bestChromosomes.add(chromosomes[indexesUsed.get(listIndex2)]);
+            indexesUsed.remove(listIndex2);
+         }
+      }
+      Chromosome[] thePair;
+      theSize = bestChromosomes.size();
+      for(int i = 0; i < bestChromosomes.size(); i+=2){
+         thePair = bestChromosomes.get(i).mate(bestChromosomes.get(i+1));
+         chromosomes[i] = thePair[0];
+         chromosomes[i + theSize] = thePair[1];
          
-         thePair = chromosomes[chromosomeIndex1].mate(chromosomes[chromosomeIndex2]);
-         chromosomes[chromosomeIndex1] = thePair[0];
-         chromosomes[chromosomeIndex2] = thePair[1];
+         thePair = bestChromosomes.get(i + 1).mate(bestChromosomes.get(i));
+         chromosomes[i + 1] = thePair[0];
+         chromosomes[i + theSize + 1] = thePair[1];
+         
       }
    }
 }
