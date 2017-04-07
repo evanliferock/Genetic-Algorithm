@@ -1,7 +1,7 @@
 /*
  * CPSC 427-02
  * Assignment # 11
- * Dev 1: Evan Srock
+ * Dev 1: Evan Srock (esrock)
  * Dev 2: Patrick Chadbourne
  * Dev 3: Katie Phillips
  *
