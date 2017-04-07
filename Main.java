@@ -25,10 +25,10 @@ public class Main{
       //primsCost[0] = lower-bound, primsCost[1] = upper-bound
       int[] primsCost = primsAlgorithm(matrix);
 
-      CycleCrossoverRoute cc = new CycleCrossoverRoute(matrix);
-      CycleCrossoverRoute cc2 = new CycleCrossoverRoute(matrix);
-      PartiallyMatchedRoute pm = new PartiallyMatchedRoute(matrix);
-      PartiallyMatchedRoute pm2 = new PartiallyMatchedRoute(matrix);
+      CycleCrossoverRoute cc = new CycleCrossoverRoute(matrix, mutationRate);
+      CycleCrossoverRoute cc2 = new CycleCrossoverRoute(matrix, mutationRate);
+      PartiallyMatchedRoute pm = new PartiallyMatchedRoute(matrix, mutationRate);
+      PartiallyMatchedRoute pm2 = new PartiallyMatchedRoute(matrix, mutationRate);
       
       Populous[] pops = {new TopDownPopulous(cc, popSize), new TopDownPopulous(pm, popSize),
                          new TournamentPopulous(cc2, popSize), new TournamentPopulous(pm2, popSize)};
@@ -64,6 +64,7 @@ public class Main{
             pops[i].reset();
          }
          
+         //Outputs the row of the table
          System.out.println(i + "    |   " + numRuns + "              | " +
                         overallBest.getRoute() +  "         | " 
                         + overallBest.cost() + " | " + 

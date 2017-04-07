@@ -8,7 +8,8 @@ public abstract class Route extends Chromosome{
    final int[][] matrix;
    protected char[] route;
    
-   Route(int[][] theMatrix){
+   Route(int[][] theMatrix, double mutRate){
+      super(mutRate);
       matrix = theMatrix;
       nodes = new char[matrix.length];
       for(int i = 0; i < nodes.length; i++){
@@ -25,7 +26,7 @@ public abstract class Route extends Chromosome{
    protected void mutate(){
       Random r = new Random();
       //This controls the mutation factor.
-      if(r.nextInt(100) >= 92){
+      if(r.nextInt(100) >= 99 - (mutationRate * 100)){
          //Swap the middle destinations.
          //This may seem like a random mutation, but should actually work pretty great
          int secondIndex, firstIndex = r.nextInt(route.length);

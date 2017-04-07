@@ -1,12 +1,12 @@
 import java.util.Random;
 
 public class PartiallyMatchedRoute extends Route{
-  PartiallyMatchedRoute(int[][] theMatrix){
-    super(theMatrix);
+  PartiallyMatchedRoute(int[][] theMatrix, double mutRate){
+    super(theMatrix, mutRate);
   }
 
   public Chromosome createNew(){
-      return new PartiallyMatchedRoute(matrix);
+      return new PartiallyMatchedRoute(matrix, mutationRate);
   }
 
   /**

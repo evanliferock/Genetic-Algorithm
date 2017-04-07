@@ -1,4 +1,8 @@
 public abstract class Chromosome{
+   double mutationRate;
+   Chromosome(double mutRate){
+      this.mutationRate = mutRate;
+   }
    /**
     * Returns the cost for the given Chromosome
     */

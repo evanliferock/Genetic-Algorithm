@@ -1,12 +1,12 @@
 import java.util.Random;
 
 public class CycleCrossoverRoute extends Route{
-	CycleCrossoverRoute(int[][] theMatrix){
-		super(theMatrix);
+	CycleCrossoverRoute(int[][] theMatrix, double mutRate){
+		super(theMatrix, mutRate);
 	}
 
    public Chromosome createNew(){
-      return new CycleCrossoverRoute(matrix);
+      return new CycleCrossoverRoute(matrix, mutationRate);
    }
 	/**
 	* Will run the Single point crossover method of mating
