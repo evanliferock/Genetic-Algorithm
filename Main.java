@@ -37,7 +37,8 @@ public class Main{
       System.out.println("1: Top-Down pairing with Partial Matched mating");
       System.out.println("2: Tournament pairing with Cycle Crossover mating");
       System.out.println("3: Tournament pairing with Partial Matched mating");
-      System.out.println("Prims lower bound: " + primsCost[0]);
+      System.out.println("Prims lower bound: " + primsCost[0] + 
+                         "\nPrims lowest known upper bound: " + primsCost[1]);
       System.out.println("Type | # of Generations | Circuit Produced | Cost " +
                          "| Init Size | Actual Size | mutation rate");
       System.out.println("--------------------------------------------------" + 
@@ -53,20 +54,22 @@ public class Main{
          
          // Needs to run each algorithm four times
          for(int runNumber = 0; runNumber < 4; runNumber++){
+            numRuns = 0;
             do{
-               numRuns = 0;
-               pops[i].runGenerations(5);
-               numRuns += 5;
+               pops[i].runGenerations(1);
+               numRuns++;
                best = (Route)pops[i].getBest();
-            }while(best.cost() > 7000);
+            }while(best.cost() > primsCost[1]);
             if(best.cost() < overallBest.cost())
                overallBest = best;
             pops[i].reset();
          }
          
          //Outputs the row of the table
-         System.out.println(i + "    |   " + numRuns + "              | " +
-                        overallBest.getRoute() +  "         | " 
+         System.out.print(i + "    |   " + numRuns + "             ");
+         if(numRuns < 10)
+            System.out.print(" ");
+         System.out.println("| " + overallBest.getRoute() +  "         | " 
                         + overallBest.cost() + " | " + 
                         popSize + "        | " + popSize + "          | " +
                         mutationRate);
