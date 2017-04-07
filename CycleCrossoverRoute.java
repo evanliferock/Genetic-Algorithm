@@ -15,10 +15,11 @@ public class CycleCrossoverRoute extends Route{
 	public Chromosome[] mate(Chromosome b){
 		Chromosome[] returnArray = new Chromosome[2];
 		Random r = new Random();
-		returnArray[0] = new CycleCrossoverRoute(this.matrix);
-		returnArray[1] = new CycleCrossoverRoute(this.matrix);
-		char[] oldRoute = this.route;
-		char[] otherRoute = ((Route)b).route;
+
+		returnArray[0] = this.createNew();
+		returnArray[1] = this.createNew();
+		char[] oldRoute = this.route.clone();
+		char[] otherRoute = ((Route)b).route.clone();
 
 		int crossover = 0;
 		boolean cycling = true;
