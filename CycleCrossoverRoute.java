@@ -2,7 +2,10 @@ public class CycleCrossoverRoute extends Route{
 	CycleCrossoverRoute(int[][] theMatrix){
 		super(theMatrix);
 	}
-
+   
+   public Chromosome createNew(){
+      return new CycleCrossoverRoute(matrix);
+   }
 	/**
 	* Will run the Single point crossover method of mating
 	* As long as b is an instance of Route

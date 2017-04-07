@@ -1,6 +1,7 @@
 import java.util.Collections;
 import java.util.Arrays;
 import java.util.Random;
+import java.lang.reflect.Constructor;
 
 public abstract class Route extends Chromosome{
    final char[] nodes;
@@ -17,12 +18,6 @@ public abstract class Route extends Chromosome{
       randomizeRoute();
    }
    
-   public Route(Route otherRoute){
-      this.nodes = otherRoute.nodes;
-      this.matrix = otherRoute.matrix;
-      this.route = otherRoute.route.clone();
-   }
-   
    public int cost(){
       int cost = 0;
       //cost of route
@@ -32,12 +27,6 @@ public abstract class Route extends Chromosome{
       // cost for returning back home
       cost += matrix[route[0] - 97][route[route.length - 1] - 97];
       return cost;
-   }
-   
-   public Chromosome createNew(){
-      Route a = this;
-      a.randomizeRoute();
-      return a;
    }
    
    protected void randomizeRoute(){

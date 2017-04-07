@@ -1,10 +1,14 @@
-import java.util.*;
+import java.util.Random;
 
 public class PartiallyMatchedRoute extends Route{
   PartiallyMatchedRoute(int[][] theMatrix){
     super(theMatrix);
   }
-
+   
+  public Chromosome createNew(){
+      return new PartiallyMatchedRoute(matrix);
+  } 
+   
   /**
   * Will run the Double point crossover method of mating
   * As long as b is an instance of Route
