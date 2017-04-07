@@ -27,14 +27,41 @@ public class Main{
       CycleCrossoverRoute cc2 = new CycleCrossoverRoute(matrix);
       PartiallyMatchedRoute pm = new PartiallyMatchedRoute(matrix);
       PartiallyMatchedRoute pm2 = new PartiallyMatchedRoute(matrix);
-
-      TopDownPopulous topCycle = new TopDownPopulous(cc, 64);
+      
+      Populous[] pops = {new TopDownPopulous(cc, 64), new TopDownPopulous(pm, 64),
+                         new TournamentPopulous(cc2, 64), new TournamentPopulous(pm2, 64)};
+      
+      /*TopDownPopulous topCycle = new TopDownPopulous(cc, 64);
       TopDownPopulous topPartial = new TopDownPopulous(pm, 64);
       TournamentPopulous tourCycle = new TournamentPopulous(cc2, 64);
-      TournamentPopulous tourPartial = new TournamentPopulous(pm2, 64);
+      TournamentPopulous tourPartial = new TournamentPopulous(pm2, 64);*/
+      
+      System.out.println("0: Top-Down pairing with Cycle Crossover mating");
+      System.out.println("1: Top-Down pairing with Partial Matched mating");
+      System.out.println("2: Tournament pairing with Cycle Crossover mating");
+      System.out.println("3: Tournament pairing with Partial Matched mating");
+      System.out.println("Prims lower bound: " + primsCost[0]);
+      System.out.println("Type | # of Generations | Circuit Produced | Cost");
+      System.out.println("-------------------------------------------------");
 
-      int numRuns = 800;
-      topCycle.runGenerations(numRuns);
+
+      
+      int numRuns;
+      Route best;
+      for(int i = 0; i < pops.length; i++){
+         numRuns = 0;
+         do{
+            pops[i].runGenerations(5);
+            numRuns += 5;
+            best = (Route)pops[i].getBest();
+         }while(best.cost() > 7000);
+         System.out.println(i + "    |   " + numRuns + "            | " +
+                        best.getRoute() +  "         | " 
+                        + best.cost() + "   ");
+
+      }
+      
+      /*topCycle.runGenerations(numRuns);
       topPartial.runGenerations(numRuns);
       tourCycle.runGenerations(numRuns);
       tourPartial.runGenerations(numRuns);
@@ -43,16 +70,7 @@ public class Main{
       Route bestTopPartial = (Route) topPartial.getBest();
       Route bestTourCycle = (Route) tourCycle.getBest();
       Route bestTourPartial = (Route) tourPartial.getBest();
-      
-      System.out.println("0: Top-Down pairing with Cycle Crossover mating");
-      System.out.println("1: Top-Down pairing with Partial Matched mating");
-      System.out.println("2: Tournament pairing with Cycle Crossover mating");
-      System.out.println("3: Tournament pairing with Partial Matched mating");
-      
-      System.out.println("Prims lower bound: " + primsCost[0]);
-      
-      System.out.println("Type | # of Generations | Circuit Produced | Cost");
-      System.out.println("-------------------------------------------------");
+            
       System.out.println("0    |   " + numRuns + "            | " +
                         bestTopCycle.getRoute() +  "         | " + bestTopCycle.cost() + "   ");
       System.out.println("1    |   " + numRuns + "            | " +
@@ -60,7 +78,7 @@ public class Main{
       System.out.println("2    |   " + numRuns + "            | " +
                         bestTourCycle.getRoute() +  "         | " + bestTourCycle.cost()  + "   ");
       System.out.println("3    |   " + numRuns + "            | " +
-                        bestTourPartial.getRoute() +  "         | " + bestTourPartial.cost() + "   ");
+                        bestTourPartial.getRoute() +  "         | " + bestTourPartial.cost() + "   ");*/
    }
 
    private static int[][] readMatrix(){
