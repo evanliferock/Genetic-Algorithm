@@ -14,8 +14,8 @@ public class CycleCrossoverRoute extends Route{
 		Chromosome[] returnArray = new Chromosome[2];
 		returnArray[0] = this.createNew();
 		returnArray[1] = this.createNew();
-		char[] oldRoute = this.route;
-		char[] otherRoute = ((Route)b).route;
+		char[] oldRoute = this.route.clone();
+		char[] otherRoute = ((Route)b).route.clone();
 
 		int crossover = 0;
 		boolean cycling = true;
