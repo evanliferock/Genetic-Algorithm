@@ -1,3 +1,14 @@
+/*
+ * CPSC 427-02
+ * Assignment # 11
+ * Dev 1: Evan Srock
+ * Dev 2: Patrick Chadbourne
+ * Dev 3: Katie Phillips
+ * 
+ * Program to run Genetic Algorithm on the Traveling
+ * Salesperson problem
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
