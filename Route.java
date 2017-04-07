@@ -18,6 +18,10 @@ public abstract class Route extends Chromosome{
       randomizeRoute();
    }
    
+   public String getRoute(){
+      return new String(route);
+   }
+   
    public int cost(){
       int cost = 0;
       //cost of route

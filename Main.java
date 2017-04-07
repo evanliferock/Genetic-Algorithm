@@ -35,10 +35,14 @@ public class Main{
 
       System.out.println("Type | # of Generations | Circuit Produced | Cost");
       System.out.println("-------------------------------------------------");
-      System.out.println("0    |   " + numRuns + "            | Add this stuff   | " + bestTopCycle.cost() + "   ");
-      System.out.println("1    |   " + numRuns + "            | Add this stuff   | " + bestTopPartial.cost()  + "   ");
-      System.out.println("2    |   " + numRuns + "            | Add this stuff   | " + bestTourCycle.cost()  + "   ");
-      System.out.println("3    |   " + numRuns + "            | Add this stuff   | " + bestTourPartial.cost() + "   ");
+      System.out.println("0    |   " + numRuns + "            | " +
+                        bestTopCycle.getRoute() +  "         | " + bestTopCycle.cost() + "   ");
+      System.out.println("1    |   " + numRuns + "            | " + 
+                        bestTopPartial.getRoute() +  "         | " + bestTopPartial.cost()  + "   ");
+      System.out.println("2    |   " + numRuns + "            | " + 
+                        bestTourCycle.getRoute() +  "         | " + bestTourCycle.cost()  + "   ");
+      System.out.println("3    |   " + numRuns + "            | " + 
+                        bestTourPartial.getRoute() +  "         | " + bestTourPartial.cost() + "   ");
    }
 
    private static int[][] readMatrix(){
