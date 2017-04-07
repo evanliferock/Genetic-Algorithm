@@ -15,6 +15,11 @@ public abstract class Populous{
          chromosomes[i] = base.createNew();
    }
    
+   public void reset(){
+      for(int i = 0; i < chromosomes.length; i++)
+         chromosomes[i] = base.createNew();
+   }
+   
    /**
     * Generates the next generation of Chromosomes
     * Runs the mating algorithm

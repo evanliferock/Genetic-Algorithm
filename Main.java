@@ -19,6 +19,8 @@ public class Main{
    */
    public static void main(String[] args){
       int[][] matrix = readMatrix();
+      int popSize = 64;
+      double mutationRate = .07;
 
       //primsCost[0] = lower-bound, primsCost[1] = upper-bound
       int[] primsCost = primsAlgorithm(matrix);
@@ -28,57 +30,48 @@ public class Main{
       PartiallyMatchedRoute pm = new PartiallyMatchedRoute(matrix);
       PartiallyMatchedRoute pm2 = new PartiallyMatchedRoute(matrix);
       
-      Populous[] pops = {new TopDownPopulous(cc, 64), new TopDownPopulous(pm, 64),
-                         new TournamentPopulous(cc2, 64), new TournamentPopulous(pm2, 64)};
-      
-      /*TopDownPopulous topCycle = new TopDownPopulous(cc, 64);
-      TopDownPopulous topPartial = new TopDownPopulous(pm, 64);
-      TournamentPopulous tourCycle = new TournamentPopulous(cc2, 64);
-      TournamentPopulous tourPartial = new TournamentPopulous(pm2, 64);*/
+      Populous[] pops = {new TopDownPopulous(cc, popSize), new TopDownPopulous(pm, popSize),
+                         new TournamentPopulous(cc2, popSize), new TournamentPopulous(pm2, popSize)};
       
       System.out.println("0: Top-Down pairing with Cycle Crossover mating");
       System.out.println("1: Top-Down pairing with Partial Matched mating");
       System.out.println("2: Tournament pairing with Cycle Crossover mating");
       System.out.println("3: Tournament pairing with Partial Matched mating");
       System.out.println("Prims lower bound: " + primsCost[0]);
-      System.out.println("Type | # of Generations | Circuit Produced | Cost");
-      System.out.println("-------------------------------------------------");
+      System.out.println("Type | # of Generations | Circuit Produced | Cost " +
+                         "| Init Size | Actual Size | mutation rate");
+      System.out.println("--------------------------------------------------" + 
+                         "-----------------------------------------");
 
 
       
-      int numRuns;
-      Route best;
+      int numRuns = 0;
+      Route best, overallBest;
+      //Does the best cost for each algorithm
       for(int i = 0; i < pops.length; i++){
-         numRuns = 0;
-         do{
-            pops[i].runGenerations(5);
-            numRuns += 5;
-            best = (Route)pops[i].getBest();
-         }while(best.cost() > 7000);
-         System.out.println(i + "    |   " + numRuns + "            | " +
-                        best.getRoute() +  "         | " 
-                        + best.cost() + "   ");
+         overallBest = (Route)pops[i].getBest();
+         
+         // Needs to run each algorithm four times
+         for(int runNumber = 0; runNumber < 4; runNumber++){
+            do{
+               numRuns = 0;
+               pops[i].runGenerations(5);
+               numRuns += 5;
+               best = (Route)pops[i].getBest();
+            }while(best.cost() > 7000);
+            if(best.cost() < overallBest.cost())
+               overallBest = best;
+            pops[i].reset();
+         }
+         
+         System.out.println(i + "    |   " + numRuns + "              | " +
+                        overallBest.getRoute() +  "         | " 
+                        + overallBest.cost() + " | " + 
+                        popSize + "        | " + popSize + "          | " +
+                        mutationRate);
 
       }
       
-      /*topCycle.runGenerations(numRuns);
-      topPartial.runGenerations(numRuns);
-      tourCycle.runGenerations(numRuns);
-      tourPartial.runGenerations(numRuns);
-
-      Route bestTopCycle = (Route) topCycle.getBest();
-      Route bestTopPartial = (Route) topPartial.getBest();
-      Route bestTourCycle = (Route) tourCycle.getBest();
-      Route bestTourPartial = (Route) tourPartial.getBest();
-            
-      System.out.println("0    |   " + numRuns + "            | " +
-                        bestTopCycle.getRoute() +  "         | " + bestTopCycle.cost() + "   ");
-      System.out.println("1    |   " + numRuns + "            | " +
-                        bestTopPartial.getRoute() +  "         | " + bestTopPartial.cost()  + "   ");
-      System.out.println("2    |   " + numRuns + "            | " +
-                        bestTourCycle.getRoute() +  "         | " + bestTourCycle.cost()  + "   ");
-      System.out.println("3    |   " + numRuns + "            | " +
-                        bestTourPartial.getRoute() +  "         | " + bestTourPartial.cost() + "   ");*/
    }
 
    private static int[][] readMatrix(){
