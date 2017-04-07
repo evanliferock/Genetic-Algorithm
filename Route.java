@@ -22,6 +22,23 @@ public abstract class Route extends Chromosome{
       return new String(route);
    }
    
+   protected void mutate(){
+      Random r = new Random();
+      //This controls the mutation factor.
+      if(r.nextInt(100) >= 92){
+         //Swap the middle destinations.
+         //This may seem like a random mutation, but should actually work pretty great
+         int secondIndex, firstIndex = r.nextInt(route.length);
+         do{
+            secondIndex = r.nextInt(route.length);
+         }while(firstIndex == secondIndex);
+         
+         char tempC = route[firstIndex];
+         route[firstIndex] = route[secondIndex];
+         route[secondIndex] = tempC;
+      }
+   }
+   
    public int cost(){
       int cost = 0;
       //cost of route

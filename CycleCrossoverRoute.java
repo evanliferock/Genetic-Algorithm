@@ -41,16 +41,10 @@ public class CycleCrossoverRoute extends Route{
 				}
 			}
 		}
-    //This controls the mutation factor.
-    if(r.nextInt(100) >= 92){
-      //Swap the middle destinations.
-      //This may seem like a random mutation, but should actually work pretty great
-      char tempC = oldRoute[oldRoute.length/2];
-      oldRoute[oldRoute.length/2] = oldRoute[(oldRoute.length/2) - 1];
-      oldRoute[(oldRoute.length/2) - 1] = tempC;
-    }
 		((Route) returnArray[0]).route = oldRoute;
 		((Route) returnArray[1]).route = otherRoute;
+      returnArray[0].mutate();
+      returnArray[1].mutate();
 		return returnArray;
 	}
 }
