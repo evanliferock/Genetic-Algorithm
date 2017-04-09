@@ -51,12 +51,14 @@ public abstract class Route extends Chromosome{
       return cost;
    }
    
+   // modified code from
+   // http://stackoverflow.com/questions/1519736/random-shuffling-of-an-array
    protected void randomizeRoute(){
       char temp;
       int index;
       Random random = new Random();
       for (int i = route.length - 1; i > 0; i--){
-        index = random.nextInt(i + 1);
+        index = random.nextInt(route.length);
         temp = route[index];
         route[index] = route[i];
         route[i] = temp;
